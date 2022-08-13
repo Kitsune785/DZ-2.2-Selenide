@@ -38,10 +38,9 @@ public class DeliveryFormTest {
         $("[data-test-id=name] input").setValue("Иванов Иван");
         $("[data-test-id=phone] input").setValue("+79999999999");
         $("[data-test-id=agreement]").click();
-        $$("button").find(exactText("Забронировать")).click();
-        $("[data-test-id=notification]")
-                .$(withText("Встреча успешно забронирована"))
-                .waitUntil(visible, 15000);
+        $(By.className("button")).click();
+        $("[data-test-id=notification]").$(withText("Встреча успешно забронирована"))
+                .shouldBe(visible, Duration.ofSeconds(15));
     }
 }
 
