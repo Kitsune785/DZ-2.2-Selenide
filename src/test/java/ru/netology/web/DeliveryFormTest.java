@@ -36,20 +36,6 @@ public class DeliveryFormTest {
     }
 
     @Test
-    void shouldShowDirectInput() {
-        $("span[data-test-id='city'] input").setValue("Краснодар");
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue(dateMeeting);
-        $("[data-test-id=name] input").setValue("Иванов Иван");
-        $("[data-test-id=phone] input").setValue("+79999999999");
-        $("[data-test-id=agreement]").click();
-        $(By.className("button")).click();
-        $("[data-test-id=notification]")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + dateMeeting), Duration.ofSeconds(15))
-                .shouldBe(Condition.visible);
-    }
-
-    @Test
     void shouldShowDateCalculation() {
         $("span[data-test-id='city'] input").setValue("Краснодар");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
@@ -180,12 +166,13 @@ public class DeliveryFormTest {
             $(".calendar").sendKeys(Keys.ARROW_RIGHT);
         }
         $(".calendar").sendKeys(Keys.ENTER);
+        String dateTest = $("[data-test-id=date] input").getValue();
         $("[data-test-id=name] input").setValue("Иванов Иван");
         $("[data-test-id=phone] input").setValue("+79999999999");
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на "), Duration.ofSeconds(15))
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + dateTest), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
     }
 }
