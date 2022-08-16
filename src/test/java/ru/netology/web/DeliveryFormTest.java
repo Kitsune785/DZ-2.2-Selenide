@@ -39,14 +39,14 @@ public class DeliveryFormTest {
     void shouldShowDirectInput() {
         $("span[data-test-id='city'] input").setValue("Краснодар");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue("22.08.2022");
+        $("[data-test-id='date'] input").setValue(dateMeeting);
         $("[data-test-id=name] input").setValue("Иванов Иван");
         $("[data-test-id=phone] input").setValue("+79999999999");
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
         $("[data-test-id=notification]")
-                .$(withText("Встреча успешно забронирована"))
-                .shouldBe(visible, Duration.ofSeconds(15));
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + dateMeeting), Duration.ofSeconds(15))
+                .shouldBe(Condition.visible);
     }
 
     @Test
